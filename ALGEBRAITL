@@ -1,0 +1,225 @@
+\documentclass[12pt,a4paper]{article}
+\usepackage[MeX]{polski}\usepackage[english]{babel}
+\usepackage[utf8]{inputenc} 
+\usepackage[T1]{fontenc}
+\usepackage{amsmath}
+\usepackage{amsfonts}
+\usepackage{amssymb}
+\usepackage{amsthm}
+\usepackage[dvipsnames]{xcolor}
+\usepackage{sectsty}
+\addtolength{\textheight}{+6cm}
+\addtolength{\voffset}{-3cm}
+\addtolength{\textwidth}{+3cm}
+\addtolength{\hoffset}{-1.5cm}
+\usepackage{pgf,tikz,pgfplots}
+\pgfplotsset{compat=1.15}
+\usepackage{mathrsfs}
+\usetikzlibrary{arrows}
+\pagestyle{empty}
+\makeatletter
+\newcommand{\linia}{\rule{\linewidth}{0.4mm}}
+
+\renewcommand{\maketitle}{\begin{titlepage}
+    \vspace*{4cm}
+    \vspace{3cm}
+    \noindent\linia
+    \begin{center}
+      \LARGE \textsc{\@title}
+         \end{center}
+     \linia
+    \vspace{0.5cm}
+    \begin{flushright}
+    \begin{minipage}{5cm}
+    \textit{\small Autor:}\\
+    \normalsize \textsc{\@author} \par
+    \end{minipage}
+    \vspace{5cm}
+     \end{flushright}
+    \vspace*{\stretch{6}}
+  \end{titlepage}%
+}
+
+\newtheorem{theorem}{Twierdzenie}[section]
+\newtheorem{lemma}[theorem]{Lemat}
+\newtheorem{proposition}[theorem]{Stwierdzenie}
+\newtheorem{defi}[theorem]{Definicja}
+
+
+% przydatne komendy
+\newcommand{\N}{\mathbb{N}}
+\newcommand{\Z}{\mathbb{Z}}
+\newcommand{\R}{\mathbb{R}}
+\newcommand{\p}{\mathbb{P}}
+
+\newcommand{\legendre}[2]{\genfrac{(}{)}{}{}{#1}{#2}}
+
+\sectionfont{\color{orange}}
+\subsectionfont{\color{red}}
+\makeatother
+\author{Hai An Mai}
+\title{Algebra i Teoria Liczb}
+\begin{document}
+\maketitle
+
+W tej książce przedstawię Wam najważniejsze i mniej ważne twierdzenia, lematy, własności, tożsamości, które są związane z Algebrą, a także z Teorią Liczb.
+\section{Podstawowe własności}
+\color{red}
+\begin{theorem}{NWD (+ trochę NWW)}
+\color{black}
+	\begin{itemize}
+	\item 
+	$(a,b)$ - $NWD(a,b)$, $[a,b]$ - $NWW(a,b)$
+	\item 
+	$(a,b)[a,b] = ab$
+	\item 
+	$((a,b),c) = (a,b,c) = (a,(b,c))$, $[[a,b],c]=[a,b,c]=[a,[b,c]]$
+	\item 
+	$(a,b)=1 $ $\land$ $a|bc \Rightarrow a|c$
+	\item 
+	Algorytm Euklidesa: $(a,b)=(|a-b|,b)=(a,|a-b|)$
+	\item 
+	Wniosek 1: $\forall a,b \in \Z$ $\exists x,y \in \Z$ $ax+by = (a,b)$
+	\item 
+	Wniosek 2: $a,m,n \in \Z$, $ a>1$ $(a^m-1, a^n-1)=a^{(m,n)}-1$
+	\end{itemize}
+\end{theorem}
+
+\begin{defi}{Wykładniki p-adyczne.}
+\color{black}
+\\
+Jeżeli $p \in \p$ i $a \neq 0$ - całkowite to symbol $v_{p}(a)$ oznacza największą liczbę całkowitą $k$, dla której $p^k|a$. Nazywamy tą liczbą \textbf{wykładnikiem} $p$-\textbf{adycznym} $a$.
+\\* Definicję możemy rozszerzyć na liczby wymierne:
+$$v_p(\frac{a}{b})=v_p(a)-v_p(b)$$
+Kilka własności:
+\begin{itemize}
+	\item 
+	$v_p(ab) = v_p(a)+v_p(b)$
+	\item 
+	$a|b \Leftrightarrow v_p(a) \leq v_p(b)$
+	\item 
+	$v_p((a,b)) =$ min$\{v_p(a), v_p(b)\}$, $v_p([a,b]) =$ max$\{v_p(a), v_p(b)\}$ 
+	\item 
+	$v_p(a+b) \geq$ min$\{v_p(a), v_p(b)\}$ (przy czym, gdy $v_p(a) \neq v_p(b)$ to zachodzi równość)
+\end{itemize}
+\end{defi}
+\begin{theorem}{Twierdzenie Legendre'a.}
+\color{black}
+$${v_p(n!) = \sum_{i=1}^{k} = \lfloor \frac{n}{p^i} \rfloor}$$ 
+gdzie $k$ to taka liczba całkowita, że $p^k \leq n < p^{k+1}$.
+\\* W dodatku można ten wykładnik przedstawić jako: 
+$${v_p(n!) = \frac{1}{p-1}(n-s_p(n))}$$ gdzie $s_p(n)$ oznaczna sumę cyfr $n$ w systemie $p$.
+\end{theorem}
+
+\begin{theorem}{LTE - Lemat o Zwiększaniu Wykładniku.}
+\color{black}
+Niech ${x,y \in \Z, k \in \N}$ i ${p \in \p}$. Wówczas, jeżeli spełnione są warunki ${v_p(xy)=0}$ i ${v_p(x-y) \geq \frac{3}{p}}$
+$${v_p(x^k-y^k)=v_p(x-y)+v_p(k)}$$
+\end{theorem}
+\begin{lemma}{Wnioski}
+\color{black}
+\\
+Są kilka różnych wersji tego twierdzenia, podam kilka: $($tu $p \in \p$, $x,y \in \Z$, $k \in \N$, $v_p(xy)=0$$)$
+\begin{itemize}
+	\item
+	$p >2$, $v_p(x-y) \geq 1$, $v_p(x^k-y^k)=v_p(x-y)+v_p(k)$ 
+	\item
+	$p >2$, $v_p(x+y) \geq 1$, $2 \nmid k$, $v_p(x^k+y^k)=v_p(x+y)+v_p(k)$
+	\item 
+	$p =2$, $v_p(x-y) \geq 1$, $2 | k$, $v_p(x^k-y^k)=v_p(x-y)+v_p(x+y)+v_p(k)-1$
+	\item 
+	$p =2$, $v_p(x-y) \geq 2$, $v_p(x^k-y^k)=v_p(x-y)+v_p(k)$ $($Gdy $2 \nmid k$ to można dać plusa$)$
+	\item 
+	$p >2$, $v_p(x-1) = \alpha$, dla dowolnego $\beta \geq 0$, $p^{\alpha+\beta}|x^k-1 \Leftrightarrow p^\beta|k$
+	\item 
+	$p =2$, $v_2(x^2-1) = \alpha$, dla dowolnego $\beta \geq 0$, $2^{\alpha+\beta}|x^k-1 \Leftrightarrow 2^{\beta+1}|k$
+\end{itemize}
+Dodałem ostatnie dwa fakty, bo pojawiły się kiedyś na IMO, a dowody wychodzą prosto z LTE.
+\end{lemma}
+\section{Kongruencje}
+\begin{theorem}{Twierdzenie Eulera}
+\color{black}
+Jeżeli ${(a,m)=1}$, to ${a^{\varphi(m)} \equiv 1}$ $($mod m$)$, gdzie $\varphi(m)$ - ilość liczb względnie pierwszych od $m$ $($Więcej o tej funkcji pózniej$)$
+\end{theorem}
+
+\begin{theorem}{Wniosek: Twierdzenie Fermata}
+\color{black}
+Jeżeli $p \in \p$ i $a \perp p$ to $a^{p-1} \equiv 1$ $($mod $p$$)$ $\Leftrightarrow$ $($można bez $a \perp p$$)$ $a^p \equiv a$ $($mod $p$$)$.
+\end{theorem}
+\begin{theorem}{Twierdzenie Wilsona}
+\color{black}
+Dla każdej $p \in \p$ zachodzi $(p-1)! \equiv -1$ $($mod $p$$)$.
+\\ Bonus: Dla $n \in \Z_{\geq 6}$ $(n-1)! \equiv 0$ $($mod $n$$)$
+\end{theorem}
+\begin{theorem}{Chińskie twierdzenie o resztach}
+\color{black}
+Jeżeli $m_1,m_2,\ldots,m_r \geq 2$ są parami względnie pierwszymi liczbami naturalnymi, $a_1,a_2,\ldots,a_r$ są dowolnymi liczbami całkowitymi i spełniają układ kongruencji:
+	$$
+	\left\{ \begin{array}{ll}
+	x \equiv a_1 & \textrm{$($mod {$m_1$}$)$}\\
+	x \equiv a_2 & \textrm{$($mod {$m_2$}$)$}\\
+	\vdots\\
+	x \equiv a_r & \textrm{$($mod {$m_r$}$)$}\\
+	\end{array} \right.
+	$$
+	To istnieje dokładnie jedno rozwiązanie $x$, gdzie $0 \leq x < M=m_1\cdot\ldots\cdot m_r$.
+\end{theorem}
+\begin{defi}{Rzędy.}
+\color{black}
+\\
+\textbf{Rzędem} a modulo n dla liczb $a \perp n \in \Z_{+}$, nazywamy najmniejszą liczbę całkowitą dodatnią k taką, że $a^k \equiv 1$ $($mod n$)$, oznaczamy $k=ord_n(a)$.
+Ważne własności:
+\begin{itemize}
+	\item $a^x \equiv 1$ $($mod n$)$ $\Longleftrightarrow$ $ord_n(a)|x$, w szczególności $ord_n(a)|\varphi(n)$
+	\item Jeśli $t=ord_n(a)$ to liczby $1,a,a^2,\ldots,a^{t-1}$ dają parami różne reszty modulo n.
+\end{itemize}
+\end{defi}
+\begin{lemma}
+\color{black}
+Dany są liczby $n>2,a \in Z$ względnie pierwsze. Załóżmy, że $s \geq 1$ jest najmniejszym wykładnikiem, że $$a^s \equiv -1 \textrm{ $($mod n$)$}$$ Wówczas $ord_n(a)=2s$ i gdy $a^t \equiv -1$ $($mod n$)$ $\Leftrightarrow t=(2k-1)s$, $k \in \N$.
+\end{lemma}
+\begin{defi}{Pierwiastki pierwotne (Generator).}
+\color{black}
+\\ Liczba całkowita g nazywamy \textbf{pierwiastkiem pierwotnym modulo} m, gdy $(g,m)=1$ i $ord_m(g)=\varphi(m)$.
+\end{defi}
+\begin{theorem}
+\color{black}
+Pierwiastek pierwotny modulo m istnieje wtedy i tylko wtedy, gdy \textcolor{blue}{$m=p^t$, $m=2p^t$, $m=2$} lub \textcolor{blue}{$m=4$}, gdzie $p \in \p$ - nieparzyste i t - dowolna liczba naturalna.
+\end{theorem}
+\begin{defi}{Reszty kwadratowe.}
+\color{black}
+\\ Liczba a jest \textbf{resztą kwadratową} modulo p. jeżeli kongruencja $x^2 \equiv a$ $($mod p$)$ ma rozwiązanie w liczbach całkowitych.
+\end{defi}
+\begin{defi}{Symbol Legendre'a.}
+	\color{black}
+	Niech p będzie nieparzystą liczbą pierwszą. Dla $a \in \Z$:
+	$$
+	\legendre{a}{p} =
+	\left\{ \begin{array}{ll}
+	0 & p|a \\
+	1 & \textrm{jeśli a jest resztą kwadratową modulo p} \\
+	-1 & \textrm{w przeciwnym przypadku}
+	\end{array} \right.	
+	$$
+\end{defi}
+\begin{theorem}{Reszty kwadratowe.}
+	\color{black}
+	\\
+	\begin{itemize}
+		\item $\legendre{a}{p} = \legendre{a^{-1}}{p} = \legendre{a+kp}{p}$
+		\item $\legendre{a^2}{p}=1$
+		\item $\legendre{ab}{p}=\legendre{a}{p}\legendre{b}{p}$
+		\item $\legendre{a}{p} \equiv a^{\frac{p-1}{2}}$ $($mod p$)$
+		\item $\legendre{p}{q}\legendre{q}{p} = (-1)^{\frac{p-1}{2}\frac{q-1}{2}}$, gdzie $p,q \in \p$ - nieparzyste
+	\end{itemize}	
+\end{theorem}
+\section{Wielomiany}
+\begin{defi}
+\color{black}
+	Dla $n \in \N_{0}$ i zmiennej $x$, wielomian ma postać:
+	$$a_nx^n+a_{n-1}x^{n-1}+\ldots+a_1x+a_0 = \sum_{k=0}^{n}a_kx^k$$
+	gdzie $a_0,a_1,\ldots,a_n$ są współczynnikami wielomianu, oraz $a_n \neq 0$ nazywamy współczynnikiem wiodący, a $a_0$ współczynnik wolny. Często przedstawiamy wielomian jako funkcja $f(x)$.
+\end{defi}
+\begin{defi}{Stopień wielomianu}
+	\color{black}
+	\\

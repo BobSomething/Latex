@@ -42,7 +42,543 @@
 }
 
 \newtheorem{theorem}{Twierdzenie}[section]
-\newtheorem{corollary}{Wniosek}[theorem]\documentclass[10pt,a4paper]{article}
+\newtheorem{corollary}{Wniosek}[theorem]\documentclass[10pt,a4paper]{article}\documentclass[10pt,a4paper]{article}
+\usepackage[MeX]{polski}\usepackage[english]{babel}
+\usepackage[utf8]{inputenc} 
+\usepackage[T1]{fontenc}
+\usepackage{amsmath}
+\usepackage{amsfonts}
+\usepackage{amssymb}
+\usepackage{amsthm}
+\usepackage[dvipsnames]{xcolor}
+\usepackage{sectsty}
+\addtolength{\textheight}{+6cm}
+\addtolength{\voffset}{-3cm}
+\addtolength{\textwidth}{+3cm}
+\addtolength{\hoffset}{-1.5cm}
+\usepackage{pgf,tikz,pgfplots}
+\pgfplotsset{compat=1.15}
+\usepackage{mathrsfs}
+\usetikzlibrary{arrows}
+\pagestyle{empty}
+\usepackage{fancyhdr}
+\makeatletter
+\newcommand{\linia}{\rule{\linewidth}{0.4mm}}
+
+\renewcommand{\maketitle}{\begin{titlepage}
+		\vspace*{4cm}
+		\vspace{3cm}
+		\noindent\linia
+		\begin{center}
+			\LARGE \textsc{\@title}
+		\end{center}
+		\linia
+		\vspace{0.5cm}
+		\begin{flushright}
+			\begin{minipage}{5cm}
+				\textit{\small Autor:}\\
+				\normalsize \textsc{\@author} \par
+			\end{minipage}
+			\vspace{5cm}
+		\end{flushright}
+		\vspace*{\stretch{6}}
+	\end{titlepage}%
+}
+
+\theoremstyle{plain}
+\newtheorem{thm}{Twierdzenie}[section]
+\newtheorem{lem}[thm]{Lemat}
+\newtheorem{prop}[thm]{Stwierdzenie}
+\newtheorem*{cor}{Wniosek}
+
+\theoremstyle{definition}
+\newtheorem{defi}{Definicja}[section]
+\newtheorem{conj}{Conjecture}[section]
+\newtheorem{exmp}{Przykład}[section]
+
+\theoremstyle{remark}
+\newtheorem*{rem}{Remark}
+\newtheorem*{note}{Note}
+	
+\pagestyle{fancy}
+\fancyhf{}
+\rhead{Hai An Mai}
+\lhead{ATL}
+\rfoot{\thepage}
+
+% przydatne komendy
+\newcommand{\N}{\mathbb{N}}
+\newcommand{\Z}{\mathbb{Z}}
+\newcommand{\R}{\mathbb{R}}
+\newcommand{\p}{\mathbb{P}}
+\newcommand{\C}{\mathbb{C}}
+\newcommand{\A}{\mathbb{A}}
+\newcommand{\q}{\textbf{1}}
+
+
+
+\newcommand{\legendre}[2]{\genfrac{(}{)}{}{}{#1}{#2}}
+
+\makeatother
+\author{Hai An Mai}
+\title{Algebra i Teoria Liczb}
+\begin{document}
+	\maketitle
+	
+	W tej książce przedstawię Wam najważniejsze i mniej ważne twierdzenia, lematy, własności, tożsamości, które są związane z Algebrą, a także z Teorią Liczb.
+	\section{Podstawowe własności}
+	\begin{thm}{NWD (+ trochę NWW)}
+		\begin{itemize}
+			\item 
+			$(a,b)$ - $NWD(a,b)$, $[a,b]$ - $NWW(a,b)$
+			\item 
+			$(a,b)[a,b] = ab$
+			\item 
+			$((a,b),c) = (a,b,c) = (a,(b,c))$, $[[a,b],c]=[a,b,c]=[a,[b,c]]$
+			\item 
+			Algorytm Euklidesa: $(a,b)=(|a-b|,b)=(a,|a-b|)$
+			\item 
+			Wniosek 1: $\forall a,b \in \Z$ $\exists x,y \in \Z$ $ax+by = (a,b)$
+			\item 
+			Wniosek 2: $a,m,n \in \Z$, $ a>1$ $(a^m-1, a^n-1)=a^{(m,n)}-1$
+		\end{itemize}
+	\end{thm}
+	
+	\begin{defi}[Wykładniki p-adyczne]
+		Jeżeli $p \in \p$ i $a \neq 0$ - całkowite to symbol $v_{p}(a)$ oznacza największą liczbę całkowitą $k$, dla której $p^k|a$. Nazywamy tą liczbą \textbf{wykładnikiem} $p$-\textbf{adycznym} $a$.
+		\\* Definicję możemy rozszerzyć na liczby wymierne:
+		$$v_p(\frac{a}{b})=v_p(a)-v_p(b)$$
+		Kilka własności:
+		\begin{itemize}
+			\item 
+			$v_p(ab) = v_p(a)+v_p(b)$
+			\item 
+			$a|b \Leftrightarrow v_p(a) \leq v_p(b)$
+			\item 
+			$v_p((a,b)) =$ min$\{v_p(a), v_p(b)\}$, $v_p([a,b]) =$ max$\{v_p(a), v_p(b)\}$ 
+			\item 
+			$v_p(a+b) \geq$ min$\{v_p(a), v_p(b)\}$ (przy czym, gdy $v_p(a) \neq v_p(b)$ to zachodzi równość)
+		\end{itemize}
+	\end{defi}
+	\begin{thm}{Twierdzenie Legendre'a.}
+		$${v_p(n!) = \sum_{i=1}^{k} = \lfloor \frac{n}{p^i} \rfloor}$$ 
+		gdzie $k$ to taka liczba całkowita, że $p^k \leq n < p^{k+1}$.
+		\\* W dodatku można ten wykładnik przedstawić jako: 
+		$${v_p(n!) = \frac{1}{p-1}(n-s_p(n))}$$ gdzie $s_p(n)$ oznaczna sumę cyfr $n$ w systemie $p$.
+	\end{thm}
+	
+	\begin{thm}{LTE - Lemat o Zwiększaniu Wykładniku.}
+		Niech ${x,y \in \Z, k \in \N}$ i ${p \in \p}$. Wówczas, jeżeli spełnione są warunki ${v_p(xy)=0}$ i ${v_p(x-y) \geq \frac{3}{p}}$
+		$${v_p(x^k-y^k)=v_p(x-y)+v_p(k)}$$
+	\end{thm}
+	\begin{cor}{LTE}
+		\\
+		Są kilka różnych wersji tego twierdzenia, podam kilka: $($tu $p \in \p$, $x,y \in \Z$, $k \in \N$, $v_p(xy)=0$$)$
+		\begin{itemize}
+			\item
+			$p >2$, $v_p(x-y) \geq 1$, $v_p(x^k-y^k)=v_p(x-y)+v_p(k)$ 
+			\item
+			$p >2$, $v_p(x+y) \geq 1$, $2 \nmid k$, $v_p(x^k+y^k)=v_p(x+y)+v_p(k)$
+			\item 
+			$p =2$, $v_p(x-y) \geq 1$, $2 | k$, $v_p(x^k-y^k)=v_p(x-y)+v_p(x+y)+v_p(k)-1$
+			\item 
+			$p =2$, $v_p(x-y) \geq 2$, $v_p(x^k-y^k)=v_p(x-y)+v_p(k)$ $($Gdy $2 \nmid k$ to można dać plusa$)$
+			\item 
+			$p >2$, $v_p(x-1) = \alpha$, dla dowolnego $\beta \geq 0$, $p^{\alpha+\beta}|x^k-1 \Leftrightarrow p^\beta|k$
+			\item 
+			$p =2$, $v_2(x^2-1) = \alpha$, dla dowolnego $\beta \geq 0$, $2^{\alpha+\beta}|x^k-1 \Leftrightarrow 2^{\beta+1}|k$
+		\end{itemize}
+		Dodałem ostatnie dwa fakty, bo pojawiły się kiedyś na IMO, a dowody wychodzą prosto z LTE.
+	\end{cor}
+	\section{Kongruencje}
+	\begin{thm}{Twierdzenie Eulera}
+		Jeżeli ${(a,m)=1}$, to ${a^{\varphi(m)} \equiv 1}$ $($mod m$)$, gdzie $\varphi(m)$ - to funkcja Eulera/tocjent $($Więcej o tej funkcji pózniej$)$
+	\end{thm}
+	
+	\begin{thm}{Wniosek: Twierdzenie Fermata}
+		Jeżeli $p \in \p$ i $a \perp p$ to $a^{p-1} \equiv 1$ $($mod $p$$)$ $\Leftrightarrow$ $($można bez $a \perp p$$)$ $a^p \equiv a$ $($mod $p$$)$.
+	\end{thm}
+	\begin{thm}{Twierdzenie Wilsona}
+		Dla każdej $p \in \p$ zachodzi $(p-1)! \equiv -1$ $($mod $p$$)$.
+		\\ Bonus: Dla $n \in \Z_{\geq 6}$ $(n-1)! \equiv 0$ $($mod $n$$)$
+	\end{thm}
+	
+	\begin{thm}{Uogólnienie Twierdzenia Wilsona}
+		\\
+		Dany jest liczba $m \in \Z_{+}$. Niech $P(m)$ oznacza iloczyn wszystkich liczb mniejszych $m$ i względnie pierwszych z $m$, to:
+		$$
+		P(m) \equiv_m
+		\left\{ \begin{array}{ll}
+		-1 & \textrm{gdy } m= 2, 4, p^t, 2p^t \\
+		~~ 1 & \textrm{w przeciwnym przypadku}\\
+		\end{array} \right.
+		$$
+	\end{thm}
+	\begin{thm}{Chińskie twierdzenie o resztach}
+		Jeżeli $m_1,m_2,\ldots,m_r \geq 2$ są parami względnie pierwszymi liczbami naturalnymi, $a_1,a_2,\ldots,a_r$ są dowolnymi liczbami całkowitymi i spełniają układ kongruencji:
+		$$
+		\left\{ \begin{array}{ll}
+		x \equiv a_1 & \textrm{$($mod {$m_1$}$)$}\\
+		x \equiv a_2 & \textrm{$($mod {$m_2$}$)$}\\
+		\vdots\\
+		x \equiv a_r & \textrm{$($mod {$m_r$}$)$}\\
+		\end{array} \right.
+		$$
+		To istnieje dokładnie jedno rozwiązanie $x$, gdzie $0 \leq x < M=m_1\cdot\ldots\cdot m_r$.
+	\end{thm}
+	\begin{defi}{Rzędy.}
+		\\
+		\textbf{Rzędem} a modulo n dla liczb $a \perp n \in \Z_{+}$, nazywamy najmniejszą liczbę całkowitą dodatnią k taką, że $a^k \equiv 1$ $($mod n$)$, oznaczamy $k=ord_n(a)$.
+		Ważne własności:
+		\begin{itemize}
+			\item $a^x \equiv 1$ $($mod n$)$ $\Longleftrightarrow$ $ord_n(a)|x$, w szczególności $ord_n(a)|\varphi(n)$
+			\item Jeśli $t=ord_n(a)$ to liczby $1,a,a^2,\ldots,a^{t-1}$ dają parami różne reszty modulo n.
+		\end{itemize}
+	\end{defi}
+	\begin{cor}{Rzędy}
+		\\
+		Tu są kilka wniosków, które warto znać o rzędach.
+		\begin{itemize}
+			\item 
+			Jeżeli $(ord_n(a),ord_n(b))=1$, to $ord_n(ab)=ord_n(a)\cdot ord_n(b)$
+			\item
+			$ord_n(a^k)={ord_n(a)}/{(k,ord_n(a))}$
+			\item
+			$ord_n(a)=ord_n(a^{-1})$ $($Tu $a^{-1}$ oznaczna odwrotność $a$ modulo $n$$)$
+			\item
+			$n|\varphi(a^n-1)$
+		\end{itemize}
+	\end{cor}
+	\begin{defi}{Pierwiastki pierwotne (Generator).}
+		\\ Liczba całkowita g nazywamy \textbf{pierwiastkiem pierwotnym modulo} m, gdy $(g,m)=1$ i $ord_m(g)=\varphi(m)$.
+	\end{defi}
+	\begin{thm}
+		Pierwiastek pierwotny modulo m istnieje wtedy i tylko wtedy, gdy:
+	    $$m=p^t, ~ m=2p^t, ~ m=2 ~ \textrm{lub} ~ m=4,$$ gdzie $p \in \p$ - nieparzyste i t - dowolna liczba naturalna.
+	\end{thm}
+	\begin{cor}{Wnioski}
+		\\
+		Proste i nieproste wnioski o pierwiastkach pierwotnych.
+		\begin{itemize}
+			\item
+			Jeśli istnieje pierwiastek modulo $m$, to ich jest $\varphi(\varphi(m))$ $($różnych $($mod $m$$))$
+			\item
+			Iloczyn wszystkich $($różnych $($mod $p))$ pierwiastków pierwotnych modulo $p$ przystaje do $(-1)^{\varphi(p-1)}$ modulo $p$ 
+			\item
+			Jeżeli $p=4k+1 \in \p$, dla pewnego $k \in \Z_{+}$, to $g$ jest generatorem $\Leftrightarrow$ $-g$ jest generatorem.
+			\item
+			Jeżeli $p=4k+3 \in \p$, dla pewnego $k \in \Z_{+}$, to $g$ jest generatorem $\Leftrightarrow$ $ord_p(-g)=(p-1)/2$
+		\end{itemize}
+	\end{cor}
+	\begin{thm}{Liczba Carmichaela}
+		\\
+		Liczba złożona $m \in N$ spełnia kongruencje $a^{m-1} \equiv 1$ $($mod $m)$, dla każdego $m \perp a \in \Z$ (jest to tzn. liczba Carmichaela), wtedy i tylko wtedy gdy spełnia te dwa warunki:
+		\begin{itemize}
+			\item 
+			$m$ jest liczbą bezkwadratową $($czyli $v_p(m) \leq 1$ dla każdego $p \in \p$$)$
+			\item
+			$p|m \Rightarrow p-1|m-1$ 
+		\end{itemize}
+		Łatwo wywnioskować, że liczba Carmichaela ma co najmniej trzy różne dzielniki pierwsze. Także udowodniono, że istnieje nieskończenie wiele liczb Carmichaela.
+	\end{thm}
+	\begin{defi}{Reszty kwadratowe.}
+		\\ Liczba a jest \textbf{resztą kwadratową} modulo p. jeżeli kongruencja $x^2 \equiv a$ $($mod p$)$ ma rozwiązanie w liczbach całkowitych.
+	\end{defi}
+	\begin{defi}{Symbol Legendre'a.}
+		Niech p będzie nieparzystą liczbą pierwszą. Dla $a \in \Z$:
+		$$
+		\legendre{a}{p} =
+		\left\{ \begin{array}{ll}
+		0 & p|a \\
+		+1 & \textrm{jeśli a jest resztą kwadratową modulo p} \\
+		-1 & \textrm{w przeciwnym przypadku}
+		\end{array} \right.	
+		$$
+	\end{defi}
+	\begin{thm}{Kryterium Gaussa}
+		\\
+		Jeżeli $p$ jest nieparzystą liczbą pierwszą, to dla dowolnego $a \in \Z$ zachodzi:
+		$$\legendre{a}{p} \equiv a^{\frac{p-1}{2}}\textrm{ $($mod }p)$$
+	\end{thm}
+	\begin{thm}{Prawo wzajemności reszt kwadratowych}
+		\\
+		Jeżeli $p,q$ są nieparzystymi liczbami pierwszymi, to zachodzi:
+		$$\legendre{p}{q}\legendre{q}{p} = (-1)^{\frac{p-1}{2}\frac{q-1}{2}}$$
+	\end{thm}
+	\begin{thm}{Dwa uzupełnienia praw wzajemności reszt kwadratowych}
+		\\
+		$$
+		\legendre{-1}{p} =
+		\left\{ \begin{array}{ll}
+		+1 & p \equiv 1 \textrm{ }(mod\textrm{ }4) \\
+		-1 & p \equiv 3 \textrm{ }(mod\textrm{ }4)
+		\end{array} \right.	
+		$$
+		
+		$$
+		\legendre{2}{p} =
+		\left\{ \begin{array}{ll}
+		+1 & p \equiv \pm 1 \textrm{ }(mod\textrm{ }8) \\
+		-1 & p \equiv \pm 3 \textrm{ }(mod\textrm{ }8)
+		\end{array} \right.	
+		$$	
+	\end{thm}
+	\section{Wielomiany}
+	\begin{defi}
+		Wielomian stopnia $n$ o współczynnikach $a_0,a_1,\ldots,a_n \in \A$ i $a_n \neq 0$ \\ $(\A$ to dowolny pierścień$)$ nazywamy funkcję $f:\A \rightarrow \A$
+		$$f(x)=a_nx^n+a_{n-1}x^{n-1}+\ldots+a_1x+a_0 = \sum_{k=0}^{n}a_kx^k$$
+		$a_n$ nazywamy \textbf{\textit{współczynnikiem wiodący}} i $a_0$ \textbf{\textit{współczynnik wolny}}.  
+		\\ $\A[x]$ oznaczamy ciałem wielomianów o współczynnikach w $\A$
+		\\
+		\textbf{\textit{Stopień wielomianu}} oznaczamy $deg$ $f$, a \textbf{\textit{pierwiastkiem}} wielomianu nazywamy taką liczbą $\lambda$, że $f(\lambda)=0$.
+	\end{defi}
+	\begin{thm}{Bézout}
+		\\
+		Dany jest wielomian $f(x) \in \A[x]$ stopnia $n$ i $a \in \R$, to istnieje taki wielomian $g(x) \in \A[x]$, że zachodzi równość: 
+		$$f(x)=(x-a)g(x)+f(a)$$
+		Także wiemy, że $deg$ $g(x) = n-1$ i $f(x)$, $g(x)$ mają ten sam współczynnik wiodący. 
+	\end{thm}
+	\begin{cor}{Bézout}
+		\\
+		Kilka prostych wniosków z twierdzenie powyżej:
+		\begin{itemize}
+			\item 
+			Gdy $a$ jest pierwiastkiem wielomiany $f(x)$ to mamy: $f(x)=(x-a)g(x)$
+			\item
+			Gdy $f(x) \in \Z[x]$, to dla różnych $a,b \in \Z$: $a-b|f(a)-f(b)$
+			\item
+			$f(x)=(x-\alpha_1)(x-\alpha_2)\ldots(x-\alpha_s)h(x)$, gdzie $\alpha_k$ dla $k=1,2,\ldots,s$ to pierwiastki wielomianu $f(x)$, $deg$ $h(x)=deg$ $f(x)-s$ i $f(x)$, $h(x)$ mają ten sam współczynnik wiodący. 
+		\end{itemize}
+	\end{cor}
+	\begin{defi}{Wielomiany nierozkładalne}
+		\\
+		Wielomian $f(x) \in \A[x]$ jest \textbf{\textit{nierozkładalny}} nad $\A$, gdy ma stopień co najmniej jeden 
+		\\ i jeżeli $f(x)=a(x)b(x)$, $a(x)$ i $b(x) \in \A[x]$ to $deg$ $a=0$ lub $deg$ $b=0$.
+	\end{defi}
+	\begin{thm}{Kryterium Eisensteina}
+		\\
+		Dany jest wielomian $f(x) \in \Z[x]$, że $f(x)=\sum_{k=0}^n a_kx^k$ i $a_n \neq 0$ i istnieje liczba pierwsza $p$, że: 
+		$$p \nmid a_n ~~~~ p|a_k ~~ \text{dla} ~~ k=0,1,\ldots,n-1 ~~ i ~~ p^2 \nmid a_0$$
+		To wielomian $f(x)$ jest nierozkładalny.
+	\end{thm}
+	\begin{thm}{Zasadnicze twierdzenie algebry}
+		\\
+		Każda niezerowy wielomian $f(x) \in \C[x]$ ma pierwiastek zespolony. Co więcej, wielomian można przedstawić jako: $(deg$ $f(x)=n$, $a_n$ - współczynnik wiodący$)$
+		$$f(x)=a_n(x-x_1)(x-x_2)\ldots(x-x_n)$$
+		gdzie $x_1,x_2,\ldots,x_n$ są to pierwiastki wielomiany $f(x)$. 
+		\\ Można z tego wywnioskować, że każdy wielomian $g(x) \in \A[x]$ stopnia $n$ ma co najwyżej $n$ pierwiastków w $\A$.
+	\end{thm}
+	\begin{thm}
+		Dany jest wielomian $f(x) \in \Z[x]$. Jeśli ma pierwiastek wymierny $\frac{k}{m}$, gdzie $k \perp m$, to $k|a_0$ i $m|a_n$. 
+		\\ Ważny wniosek jest taki, że każdy unormowany wielomian ma pierwiastki całkowite lub niewymierne.
+	\end{thm}
+	\begin{thm}{Wzory Viete'a}
+		\\
+		Jeśli $x_1,x_2,\ldots,x_n$ są pierwiastkami wielomianu $f(x) = \sum_{k=0}^{n}a_kx^k$, to zachodzą wzory:
+		$$
+		\left\{ \begin{array}{ll}
+		x_1+x_2+\ldots+x_n=-{a_{n-1}}/{a_n} \\
+		\sum_{i>j}x_ix_j=a_{n-2}/a_n \\
+		\sum_{i>j>k}x_ix_jx_k=-a_{n-3}/a_n\\
+		\vdots \\
+		x_1x_2\ldots x_n=(-1)^n \cdot a_0/a_n
+		\end{array} \right.	
+		$$
+	\end{thm}
+	
+	\begin{defi}{Wielomian cyklotomiczny}
+		\\
+		Dany jest $n\in\N$ to wielomian cyklomotomiczny definiujemy tak:
+		$$\Phi_n(x)=\prod_{k \perp n}(x-\omega^k)$$
+		Gdzie $\omega=\omega_n$ to jest pierwiastek wielomianu $x^n-1$ i ma postać: 
+		$$\cos{\frac{2\pi}{n}}+i\sin{\frac{2\pi}{n}}$$ $(i$ jednostka urojona ma własność $i^2=-1)$
+	\end{defi}
+	\begin{cor}{Własności wielomianów cyklotomicznych}
+		\begin{itemize}
+			\item $deg$ $\Phi_n=\varphi(n)$, $\Phi_n(x) \in \Z$
+			\item $\Phi_n(x)$ jest nierozkładalny nad ciałem liczb wymiernych.
+			\item $x^n-1=\prod_{d|n} \Phi_d(x)$
+		\end{itemize}
+	\end{cor}
+	\begin{thm}{Lemat Hensela}
+		\\
+		Dany jest wielomian $f(x) \in \Z[x]$ i $p \in \p$. Załóżmy, że istnieje taka liczba całkowita $a$, że $f(a) \equiv 0$ $($mod $p^n$$)$ i $f'(a) \not\equiv 0$ $($mod p$)$. Wówczas istnieje dokładnie jedno takie $b \in \Z$, że: 
+		$$f(b) \equiv 0\textrm{ }(mod\textrm{ }p^{n+1})\textrm{ i } b \equiv a\textrm{ }(mod\textrm{ }p^{n})$$
+	\end{thm}
+	
+	\section{Funkcje arytmetyczne}
+	\begin{defi} Funkcję arytmetyczną nazywamy dowolną funkcję $f:\N \longrightarrow \C$.
+	\end{defi}
+	\begin{defi} Funkcję arytmetyczną nazywamy multiplikatywną, gdy dla wszystkich liczb względnie pierwszych $m,n \in \N$ zachodzi: $f(mn)=f(m)f(n)$.
+	\end{defi}
+	\begin{thm}
+		Suma $k$-tych potęg dzielników oznaczamy:
+		$$\sigma_k(n)=\sum_{d|n}d^k$$
+		W szczególności mamy: $\sigma_0=\tau$ - liczba dzielników, $\sigma_1=\sigma$ - suma dzielników. Ta funkcja jest multiplikatywna
+		\\ Gdy $n=p_1^{\alpha_1}p_2^{\alpha_2}\ldots p_s^{\alpha_s}$, wtedy:
+		$$\tau(n)=(\alpha_1+1)(\alpha_2+1)\cdot \ldots \cdot(\alpha_s+1)\textrm{, } \sigma(n)=\frac{p_1^{\alpha_1+1}-1}{p_1-1}\cdot \frac{p_2^{\alpha_2+1}-1}{p_2-1}\cdot \ldots \cdot \frac{p_s^{\alpha_s+1}-1}{p_s-1}$$
+		Trochę własności:
+		$$\sum_{i=1}^{n} \tau(i)=\sum_{i=0}^{n} \Bigl\lfloor \frac{n}{i} \Bigr\rfloor \textrm{, } 
+		\sum_{i=1}^{n}\sigma(i)=\sum_{i=1}^{n}i\Bigl\lfloor \frac{n}{i} \Bigr\rfloor$$
+		Uogólniając dla $\sigma_k$:
+		$$\sum_{i=1}^{n}\sigma_k(i)=\sum_{i=1}^{n}i^k\Bigl\lfloor \frac{n}{i} \Bigr\rfloor$$
+	\end{thm}
+	
+	\begin{thm} \color{black} Funkcja Eulera $\varphi$ (tocjent):
+		\\ $\varphi(n)$ to ilość liczb naturalnych mniejszych (równych) od $n$ i względnie pierwszych z $n$. Jest to funkcja multiplikatywna. Spełnia:
+		$$\varphi(p^k)=p^k-p^{k-1}=p^k\Bigl(1-\frac{1}{p}\Bigr)$$
+		Więc jasne jest, że działa ten wzór, dla $n=n=p_1^{\alpha_1}p_2^{\alpha_2}\ldots p_s^{\alpha_s}$
+		$$\varphi(n)=n\Bigl(1-\frac{1}{p_1}\Bigr)\Bigl(1-\frac{1}{p_2}\Bigr)\cdot \ldots \cdot \Bigl(1-\frac{1}{p_s}\Bigr)$$
+		Kilka własności:
+		$$n=\sum_{d|n}\varphi(d) \textrm{, } \sum_{i=1}^{n}\varphi(i)\Bigl\lfloor \frac{n}{i} \Bigr\rfloor = \frac{n(n-1)}{2}$$
+	\end{thm}
+	\begin{defi} \color{black} Zdefiniujemy kilka funkcji arytmetycznych, przydatnych później.
+		\begin{itemize}
+			\item $\omega(n)$ jest to liczba dzielników pierwszych $n$.
+			\item Funkcja Möbiusa $\mu$, którą definiujemy tak:
+			$$
+			\mu(n)=
+			\left\{ \begin{array}{ll}
+			(-1)^{\omega(n)}, & \textrm{gdy n jest bezkwadratowe}\\
+			0, & \textrm{w przeciwnym przypadku}
+			\end{array} \right.	
+			$$
+			\item Funkcja jednostkowa $e(n)$:
+			$$
+			e(n)=
+			\left\{ \begin{array}{ll}
+			1, & \textrm{gdy } n=1\\
+			0, & \textrm{gdy } n>1
+			\end{array} \right.	
+			$$
+			\item Identyczność: $id(n)=n$
+			\item Funkcja stale równa $\q:$ $\q (n)=1$
+		\end{itemize}
+		Każda funkcja powyżej jest mutliplikatywna, ostatnie $3$ funkcje są całkowicie multiplikatywna (nie potrzeba warunku $a\perp b$). Poniżej mamy przydatną własność:
+		$$\sum_{d|n} \mu(d)=e(n)$$
+	\end{defi}
+	\begin{defi}{Splot Dirichleta}
+		\\
+		Niech dane są dwie funkcje arytmetyczne $f$ i $g$. Splotem Dirichleta tych funkcji nazywamy $f*g$ i jest równa:
+		$$(f *g)(n)=\sum_{d|n}f(d)g\Bigl(\frac{n}{d}\Bigr)$$
+	\end{defi}
+	\begin{thm}{Klika własności splotu}
+		\begin{itemize}
+			\item Splot jest przemienny i łączny.
+			\item Ma element neutralny $e$.
+			\item Jeśli $f(1) \neq 0$ to $f$ jest odwracalny (splotowo): istnieje g takie, że $f*g=e$
+			\item Splot dwóch funkcji multiplikatywnych jest funkcją multiplikatywną.
+		\end{itemize}
+		Kilka splotów znanych funkcji:
+		\begin{itemize}
+			\item $\mu * \q = e$
+			\item $\q * \q = \tau$
+			\item $\varphi * \q = id$
+			\item $\mu * id = \varphi$
+			\item $id * \q = \sigma$
+		\end{itemize}
+	\end{thm}
+	\begin{thm}{Twierdzenie inwersyjne Möbiusa}
+		\\ 
+		Jeżeli dane są dwie funkcje arytmetyczne $f$ i $g$ oraz:
+		$$g(n)=\sum_{d|n}f(d)$$
+		Wtedy jest to równoważne z:
+		$$f(n)=\sum_{d|n}\mu(d)g\Bigl(\frac{n}{d}\Bigr)$$
+	\end{thm}
+	\section{Ciągi rekurencyjne}
+	\begin{defi}{Wielomian charakterystyczny ciągu}
+		\\ 
+		\color{black}
+		Jeżeli ciąg $a_n$ spełnia rekurencję $a_n=Pa_{n-1}+Qa_{n-2}$ to wielomian charakterystyczny nazywamy $W(x)=x^2-Px-Q$. (Będziemy bardziej rozważać ich pierwiastki, można analogicznie definiować dla większego stopnia rekurencji).
+	\end{defi}
+	\begin{thm}{Metoda Eulera}
+		\\ 
+		Dany jest ciąg $a_n$, jeżeli $\alpha$ i $\beta$ są pierwiastkami wielomianu charakterystycznego tego ciągu, to: 
+		\begin{itemize}
+			\item Jeżeli $\alpha \neq \beta$ to istnieją takie stałe $A$, $B$, że: $$a_n=A\cdot \alpha^n+B\cdot \beta^n$$
+			\item Jeżeli $\alpha=\beta$ to istnieją takie stałe $C$ i $D$, że:
+			$$a_n=C\cdot \alpha^n+D\cdot n\alpha^{n-1}$$ 
+		\end{itemize}
+		Stałe te są jednoznacznie wyznaczone przez pierwsze dwa wyrazy ciągu.
+	\end{thm}
+	\begin{defi}{Funkcja tworząca}
+		\\
+		Funkcją tworzącą ciągu $a_n$ definiujemy tak:
+		$$\sum_{k=0}^{\infty} a_kx^k= a_0+a_1x+a_2x^2+\ldots$$
+	\end{defi}
+	
+	
+	\section{Ciekawe tożsamości algebraiczne}
+	\color{black}
+	Jeżeli $x+y+z=0$, to:
+	\begin{flalign*}~~~ \bullet ~ 2(x^4+y^4+z^4)=(x^2+y^2+z^2)^2 && \end{flalign*}
+	\begin{flalign*}~~~ \bullet ~ \frac{x^5+y^5+z^5}{5} = \frac{x^2+y^2+z^2}{2} \cdot \frac{x^3+y^3+z^3}{3} && \end{flalign*}
+	\begin{flalign*}~~~ \bullet ~ \frac{x^7+y^7+z^7}{7} = \frac{x^2+y^2+z^2}{2} \cdot \frac{x^5+y^5+z^5}{5} && \end{flalign*}
+	\begin{flalign*}\bullet ~ 4x^4+y^4=(2x^2+2xy+y^2)(2x^2-2xy+y^2) ~~~ \textbf{Tożsamość Sophie Germain} && \end{flalign*}
+	\noindent\hrulefill
+	\begin{flalign*}\bullet ~ x^3+y^3+z^3-3xyz=(x+y+z)(x^2+y^2+z^2-xy-yz-zx) && \end{flalign*}
+	\begin{flalign*}\bullet ~ (x+y+z)^3-x^3-y^3-z^3=(x+y)(y+z)(z+x) && \end{flalign*}
+	\begin{flalign*}\bullet ~ x^3+y^3+z^3+(x+y)^3+(y+z)^3+(z+x)^3=(x+y+z)(x^2+y^2+z^2) && \end{flalign*}
+	\noindent\hrulefill
+	\begin{flalign*}\bullet ~ (ab+bc+ca)(a+b+c)=(a+b)(b+c)(c+a)+abc && \end{flalign*}
+	\begin{flalign*}\bullet ~ (a+b+c)(a+b-c)(a-b+c)(-a+b+c)=2(a^2b^2+b^2c^2+c^2a^2)-(a^4+b^4+c^4) && \end{flalign*}
+	\begin{flalign*}\bullet ~ (a+b+c)^3-(a+b-c)^3-(a-b+c)^3-(-a+b+c)^3=24abc && \end{flalign*}
+	\noindent\hrulefill
+	\begin{flalign*}\bullet ~ (x+y)(y+z)(z+x)=x^2(y+z)+y^2(z+x)+z^2(x+y)+2xyz && \end{flalign*}
+	\begin{flalign*}\bullet ~ (x-y)(y-z)(z-x)=-xy(x-y)-yz(y-z)-zx(z-x) && \end{flalign*}
+	\begin{flalign*}\bullet ~ 3(x-y)(y-z)(z-x)=(x-y)^3+(y-z)^3+(z-x)^3 && \end{flalign*}
+	\noindent\hrulefill
+	\begin{flalign*}\bullet ~ \frac{b-c}{(a-b)(a-c)}+\frac{c-a}{(b-c)(b-a)}+\frac{a-b}{(c-a)(c-b)}=\frac{2}{a-b}+\frac{2}{b-c}+\frac{2}{c-a} ~~ a,b,c\textrm{ - różne} && \end{flalign*}
+	\begin{flalign*}\bullet ~ \frac{(b+c)^2}{(a-b)(a-c)}+\frac{(c+a)^2}{(b-c)(b-a)}+\frac{(a+b)^2}{(c-a)(c-b)}=1 ~~ a,b,c\textrm{ - różne} && \end{flalign*}
+	\begin{flalign*}\bullet ~ \frac{bc}{(a-b)(a-c)}+\frac{ca}{(b-c)(b-a)}+\frac{ab}{(c-a)(c-b)}=1 ~~ a,b,c\textrm{ - różne} && \end{flalign*}
+	\begin{flalign*}\bullet ~ \frac{(a+b)(a+c)}{(a-b)(a-c)}+\frac{(b+c)(b+a)}{(b-c)(b-a)}+\frac{(c+a)(c+b)}{(c-a)(c-b)}=1 ~~ a,b,c\textrm{ - różne} && \end{flalign*}
+	\begin{flalign*}\bullet ~ \frac{(1-ab)(1-ac)}{(a-b)(a-c)}+\frac{(1-bc)(1-ba)}{(b-c)(b-a)}+\frac{(1-ca)(1-cb)}{(c-a)(c-b)}=1 ~~ a,b,c\textrm{ - różne} && \end{flalign*}
+	\noindent\hrulefill
+	\begin{flalign*}\bullet ~ \frac{(a+b)}{(a-b)}+\frac{(b+c)}{(b-c)}+\frac{(c+a)}{(c-a)}=\frac{a(b-c)^2+b(c-a)^2+c(a-b)^2}{(a-b)(b-c)(c-a)} ~~ a,b,c\textrm{ - różne} && \end{flalign*}
+	\begin{flalign*}\bullet ~ \frac{(a-b)}{(a+b)}+\frac{(b-c)}{(b+c)}+\frac{(c-a)}{(c+a)}=\frac{(a-b)(b-c)(c-a)}{(a+b)(b+c)(c+a)} && \end{flalign*}
+	\begin{flalign*}\bullet ~ (x^2-yz)(y+z)+(y^2-zx)(z+x)+(x^2-yz)(y+z)=0 && \end{flalign*}
+	\begin{flalign*}\bullet ~ x^2+y^2+z^2+3(xy+yz+zx)=(x+y)(y+z)+(y+z)(z+x)+(z+x)(x+y) && \end{flalign*}
+	
+	\section{Równania diofantyczne}
+	\subsection{Rozkład na czynniki}
+		Korzystając z jednoznaczności rozkładu na czynniki pierwsze w liczbach całkowitych, otrzymując układ równań. Aby zobaczyć metodę w akcji dam przykład:
+	\begin{exmp}
+		Rozwiąż w liczbach całkowitych równianie $2^x+1=y^2$.
+	\end{exmp}
+	\subsection{Nieskończony desant}
+	\subsection{Nierówności}
+	\subsection{Kongruencje}
+	\subsection{Nieskończenie wiele nie znaczy wszystkie}
+	\subsection{Indukcja}
+	\subsection{Inne łatwe triki (Trik,Tw Eulera o 4 liczbach)}
+	\subsection{Równianie Pella}
+	\subsection{Pierścien Gaussa, $\sqrt{D}$}
+	\subsection{Reszty kwadratowe}
+	\section{Nierówności}
+	\begin{thm}[Najważniejsza nierówność na świecie!] $\forall_{x\in \R} ~ x^2\geq 0$ \end{thm}
+	\begin{thm}[Nierówność Bernoulli'ego]
+		Dla $x\geq -1$ oraz jeżeli:
+		\begin{enumerate}
+			\item $\alpha>1$ lub $\alpha<0$ to: $(1+x)^{\alpha}\geq 1+\alpha x$
+			\item $\alpha \in (0,1)$ to: $(1+x)^{\alpha}\leq 1+\alpha x$
+		\end{enumerate}
+		W szczególnośći: $x \geq -1$, $n \in \N:$ $(1+x)^n=1+nx$. 
+		\\ Równość jest wtedy i tylko wtedy jeżeli $\alpha=1$ lub $x=0$
+	\end{thm}
+	\begin{thm}[Nierówności między średnimi] Dla dowolnych $a_1,a_2,\ldots a_n \in \R_{+}$ zachodzą:
+	$$\frac{a_1+a_2+\ldots+a_n}{n}\geq \sqrt[n]{a_1\cdot a_2 \cdot \ldots \cdot a_n}\geq \frac{n}{\frac{1}{a_1}+\frac{1}{a_2}+\ldots+\frac{1}{a_n}}$$
+	\end{thm}
+	\begin{thm}[Nierówność między średnimi potęgowymi] Dla dowolnych $a_1,a_2,\ldots,a_n \in \R_{+}$ i oznaczamy średnią potęgową rzędu $p$ dla tych liczb: $$M_p=\Big(\frac{a_1^p+a_2^p+\ldots+a_n^p}{n}\Big)^{1/p} ~~~ \textrm{dla } p\in \R\setminus \{0\}$$
+	Też definiujemy średnią potęgową dla $0, +\infty,-\infty:$
+	$$M_0=\sqrt[n]{a_1 \cdot a_2 \cdot \ldots \cdot a_n}$$
+	$$M_{+\infty}=\max\{a_1,a_2,\ldots,a_n\}$$
+	$$M_{-\infty}=\min\{a_1,a_2,\ldots,a_n\}$$
+	Wtedy jeżeli $-\infty \leq p<q \leq +\infty$ to $M_p \leq M_q$
+	\end{thm}
+	\begin{thm}[Nierówności Cauchy'ego Schwarza]
+		
+	\end{thm}
+\end{document}
 \usepackage[MeX]{polski}\usepackage[english]{babel}
 \usepackage[utf8]{inputenc} 
 \usepackage[T1]{fontenc}
@@ -2049,4 +2585,541 @@ Stałe te są jednoznacznie wyznaczone przez pierwsze dwa wyrazy ciągu.
 	\subsection{Równianie Pella}
 	\subsection{Pierścien Gaussa, $\sqrt{D}$}
 	\subsection{Reszty kwadratowe}
+\end{document}
+\documentclass[10pt,a4paper]{article}
+\usepackage[MeX]{polski}\usepackage[english]{babel}
+\usepackage[utf8]{inputenc} 
+\usepackage[T1]{fontenc}
+\usepackage{amsmath}
+\usepackage{amsfonts}
+\usepackage{amssymb}
+\usepackage{amsthm}
+\usepackage[dvipsnames]{xcolor}
+\usepackage{sectsty}
+\addtolength{\textheight}{+6cm}
+\addtolength{\voffset}{-3cm}
+\addtolength{\textwidth}{+3cm}
+\addtolength{\hoffset}{-1.5cm}
+\usepackage{pgf,tikz,pgfplots}
+\pgfplotsset{compat=1.15}
+\usepackage{mathrsfs}
+\usetikzlibrary{arrows}
+\pagestyle{empty}
+\usepackage{fancyhdr}
+\makeatletter
+\newcommand{\linia}{\rule{\linewidth}{0.4mm}}
+
+\renewcommand{\maketitle}{\begin{titlepage}
+		\vspace*{4cm}
+		\vspace{3cm}
+		\noindent\linia
+		\begin{center}
+			\LARGE \textsc{\@title}
+		\end{center}
+		\linia
+		\vspace{0.5cm}
+		\begin{flushright}
+			\begin{minipage}{5cm}
+				\textit{\small Autor:}\\
+				\normalsize \textsc{\@author} \par
+			\end{minipage}
+			\vspace{5cm}
+		\end{flushright}
+		\vspace*{\stretch{6}}
+	\end{titlepage}%
+}
+
+\theoremstyle{plain}
+\newtheorem{thm}{Twierdzenie}[section]
+\newtheorem{lem}[thm]{Lemat}
+\newtheorem{prop}[thm]{Stwierdzenie}
+\newtheorem*{cor}{Wniosek}
+
+\theoremstyle{definition}
+\newtheorem{defi}{Definicja}[section]
+\newtheorem{conj}{Conjecture}[section]
+\newtheorem{exmp}{Przykład}[section]
+
+\theoremstyle{remark}
+\newtheorem*{rem}{Remark}
+\newtheorem*{note}{Note}
+	
+\pagestyle{fancy}
+\fancyhf{}
+\rhead{Hai An Mai}
+\lhead{ATL}
+\rfoot{\thepage}
+
+% przydatne komendy
+\newcommand{\N}{\mathbb{N}}
+\newcommand{\Z}{\mathbb{Z}}
+\newcommand{\R}{\mathbb{R}}
+\newcommand{\p}{\mathbb{P}}
+\newcommand{\C}{\mathbb{C}}
+\newcommand{\A}{\mathbb{A}}
+\newcommand{\q}{\textbf{1}}
+
+
+
+\newcommand{\legendre}[2]{\genfrac{(}{)}{}{}{#1}{#2}}
+
+\makeatother
+\author{Hai An Mai}
+\title{Algebra i Teoria Liczb}
+\begin{document}
+	\maketitle
+	
+	W tej książce przedstawię Wam najważniejsze i mniej ważne twierdzenia, lematy, własności, tożsamości, które są związane z Algebrą, a także z Teorią Liczb.
+	\section{Podstawowe własności}
+	\begin{thm}{NWD (+ trochę NWW)}
+		\begin{itemize}
+			\item 
+			$(a,b)$ - $NWD(a,b)$, $[a,b]$ - $NWW(a,b)$
+			\item 
+			$(a,b)[a,b] = ab$
+			\item 
+			$((a,b),c) = (a,b,c) = (a,(b,c))$, $[[a,b],c]=[a,b,c]=[a,[b,c]]$
+			\item 
+			Algorytm Euklidesa: $(a,b)=(|a-b|,b)=(a,|a-b|)$
+			\item 
+			Wniosek 1: $\forall a,b \in \Z$ $\exists x,y \in \Z$ $ax+by = (a,b)$
+			\item 
+			Wniosek 2: $a,m,n \in \Z$, $ a>1$ $(a^m-1, a^n-1)=a^{(m,n)}-1$
+		\end{itemize}
+	\end{thm}
+	
+	\begin{defi}[Wykładniki p-adyczne]
+		Jeżeli $p \in \p$ i $a \neq 0$ - całkowite to symbol $v_{p}(a)$ oznacza największą liczbę całkowitą $k$, dla której $p^k|a$. Nazywamy tą liczbą \textbf{wykładnikiem} $p$-\textbf{adycznym} $a$.
+		\\* Definicję możemy rozszerzyć na liczby wymierne:
+		$$v_p(\frac{a}{b})=v_p(a)-v_p(b)$$
+		Kilka własności:
+		\begin{itemize}
+			\item 
+			$v_p(ab) = v_p(a)+v_p(b)$
+			\item 
+			$a|b \Leftrightarrow v_p(a) \leq v_p(b)$
+			\item 
+			$v_p((a,b)) =$ min$\{v_p(a), v_p(b)\}$, $v_p([a,b]) =$ max$\{v_p(a), v_p(b)\}$ 
+			\item 
+			$v_p(a+b) \geq$ min$\{v_p(a), v_p(b)\}$ (przy czym, gdy $v_p(a) \neq v_p(b)$ to zachodzi równość)
+		\end{itemize}
+	\end{defi}
+	\begin{thm}{Twierdzenie Legendre'a.}
+		$${v_p(n!) = \sum_{i=1}^{k} = \lfloor \frac{n}{p^i} \rfloor}$$ 
+		gdzie $k$ to taka liczba całkowita, że $p^k \leq n < p^{k+1}$.
+		\\* W dodatku można ten wykładnik przedstawić jako: 
+		$${v_p(n!) = \frac{1}{p-1}(n-s_p(n))}$$ gdzie $s_p(n)$ oznaczna sumę cyfr $n$ w systemie $p$.
+	\end{thm}
+	
+	\begin{thm}{LTE - Lemat o Zwiększaniu Wykładniku.}
+		Niech ${x,y \in \Z, k \in \N}$ i ${p \in \p}$. Wówczas, jeżeli spełnione są warunki ${v_p(xy)=0}$ i ${v_p(x-y) \geq \frac{3}{p}}$
+		$${v_p(x^k-y^k)=v_p(x-y)+v_p(k)}$$
+	\end{thm}
+	\begin{cor}{LTE}
+		\\
+		Są kilka różnych wersji tego twierdzenia, podam kilka: $($tu $p \in \p$, $x,y \in \Z$, $k \in \N$, $v_p(xy)=0$$)$
+		\begin{itemize}
+			\item
+			$p >2$, $v_p(x-y) \geq 1$, $v_p(x^k-y^k)=v_p(x-y)+v_p(k)$ 
+			\item
+			$p >2$, $v_p(x+y) \geq 1$, $2 \nmid k$, $v_p(x^k+y^k)=v_p(x+y)+v_p(k)$
+			\item 
+			$p =2$, $v_p(x-y) \geq 1$, $2 | k$, $v_p(x^k-y^k)=v_p(x-y)+v_p(x+y)+v_p(k)-1$
+			\item 
+			$p =2$, $v_p(x-y) \geq 2$, $v_p(x^k-y^k)=v_p(x-y)+v_p(k)$ $($Gdy $2 \nmid k$ to można dać plusa$)$
+			\item 
+			$p >2$, $v_p(x-1) = \alpha$, dla dowolnego $\beta \geq 0$, $p^{\alpha+\beta}|x^k-1 \Leftrightarrow p^\beta|k$
+			\item 
+			$p =2$, $v_2(x^2-1) = \alpha$, dla dowolnego $\beta \geq 0$, $2^{\alpha+\beta}|x^k-1 \Leftrightarrow 2^{\beta+1}|k$
+		\end{itemize}
+		Dodałem ostatnie dwa fakty, bo pojawiły się kiedyś na IMO, a dowody wychodzą prosto z LTE.
+	\end{cor}
+	\section{Kongruencje}
+	\begin{thm}{Twierdzenie Eulera}
+		Jeżeli ${(a,m)=1}$, to ${a^{\varphi(m)} \equiv 1}$ $($mod m$)$, gdzie $\varphi(m)$ - to funkcja Eulera/tocjent $($Więcej o tej funkcji pózniej$)$
+	\end{thm}
+	
+	\begin{thm}{Wniosek: Twierdzenie Fermata}
+		Jeżeli $p \in \p$ i $a \perp p$ to $a^{p-1} \equiv 1$ $($mod $p$$)$ $\Leftrightarrow$ $($można bez $a \perp p$$)$ $a^p \equiv a$ $($mod $p$$)$.
+	\end{thm}
+	\begin{thm}{Twierdzenie Wilsona}
+		Dla każdej $p \in \p$ zachodzi $(p-1)! \equiv -1$ $($mod $p$$)$.
+		\\ Bonus: Dla $n \in \Z_{\geq 6}$ $(n-1)! \equiv 0$ $($mod $n$$)$
+	\end{thm}
+	
+	\begin{thm}{Uogólnienie Twierdzenia Wilsona}
+		\\
+		Dany jest liczba $m \in \Z_{+}$. Niech $P(m)$ oznacza iloczyn wszystkich liczb mniejszych $m$ i względnie pierwszych z $m$, to:
+		$$
+		P(m) \equiv_m
+		\left\{ \begin{array}{ll}
+		-1 & \textrm{gdy } m= 2, 4, p^t, 2p^t \\
+		~~ 1 & \textrm{w przeciwnym przypadku}\\
+		\end{array} \right.
+		$$
+	\end{thm}
+	\begin{thm}{Chińskie twierdzenie o resztach}
+		Jeżeli $m_1,m_2,\ldots,m_r \geq 2$ są parami względnie pierwszymi liczbami naturalnymi, $a_1,a_2,\ldots,a_r$ są dowolnymi liczbami całkowitymi i spełniają układ kongruencji:
+		$$
+		\left\{ \begin{array}{ll}
+		x \equiv a_1 & \textrm{$($mod {$m_1$}$)$}\\
+		x \equiv a_2 & \textrm{$($mod {$m_2$}$)$}\\
+		\vdots\\
+		x \equiv a_r & \textrm{$($mod {$m_r$}$)$}\\
+		\end{array} \right.
+		$$
+		To istnieje dokładnie jedno rozwiązanie $x$, gdzie $0 \leq x < M=m_1\cdot\ldots\cdot m_r$.
+	\end{thm}
+	\begin{defi}{Rzędy.}
+		\\
+		\textbf{Rzędem} a modulo n dla liczb $a \perp n \in \Z_{+}$, nazywamy najmniejszą liczbę całkowitą dodatnią k taką, że $a^k \equiv 1$ $($mod n$)$, oznaczamy $k=ord_n(a)$.
+		Ważne własności:
+		\begin{itemize}
+			\item $a^x \equiv 1$ $($mod n$)$ $\Longleftrightarrow$ $ord_n(a)|x$, w szczególności $ord_n(a)|\varphi(n)$
+			\item Jeśli $t=ord_n(a)$ to liczby $1,a,a^2,\ldots,a^{t-1}$ dają parami różne reszty modulo n.
+		\end{itemize}
+	\end{defi}
+	\begin{cor}{Rzędy}
+		\\
+		Tu są kilka wniosków, które warto znać o rzędach.
+		\begin{itemize}
+			\item 
+			Jeżeli $(ord_n(a),ord_n(b))=1$, to $ord_n(ab)=ord_n(a)\cdot ord_n(b)$
+			\item
+			$ord_n(a^k)={ord_n(a)}/{(k,ord_n(a))}$
+			\item
+			$ord_n(a)=ord_n(a^{-1})$ $($Tu $a^{-1}$ oznaczna odwrotność $a$ modulo $n$$)$
+			\item
+			$n|\varphi(a^n-1)$
+		\end{itemize}
+	\end{cor}
+	\begin{defi}{Pierwiastki pierwotne (Generator).}
+		\\ Liczba całkowita g nazywamy \textbf{pierwiastkiem pierwotnym modulo} m, gdy $(g,m)=1$ i $ord_m(g)=\varphi(m)$.
+	\end{defi}
+	\begin{thm}
+		Pierwiastek pierwotny modulo m istnieje wtedy i tylko wtedy, gdy:
+	    $$m=p^t, ~ m=2p^t, ~ m=2 ~ \textrm{lub} ~ m=4,$$ gdzie $p \in \p$ - nieparzyste i t - dowolna liczba naturalna.
+	\end{thm}
+	\begin{cor}{Wnioski}
+		\\
+		Proste i nieproste wnioski o pierwiastkach pierwotnych.
+		\begin{itemize}
+			\item
+			Jeśli istnieje pierwiastek modulo $m$, to ich jest $\varphi(\varphi(m))$ $($różnych $($mod $m$$))$
+			\item
+			Iloczyn wszystkich $($różnych $($mod $p))$ pierwiastków pierwotnych modulo $p$ przystaje do $(-1)^{\varphi(p-1)}$ modulo $p$ 
+			\item
+			Jeżeli $p=4k+1 \in \p$, dla pewnego $k \in \Z_{+}$, to $g$ jest generatorem $\Leftrightarrow$ $-g$ jest generatorem.
+			\item
+			Jeżeli $p=4k+3 \in \p$, dla pewnego $k \in \Z_{+}$, to $g$ jest generatorem $\Leftrightarrow$ $ord_p(-g)=(p-1)/2$
+		\end{itemize}
+	\end{cor}
+	\begin{thm}{Liczba Carmichaela}
+		\\
+		Liczba złożona $m \in N$ spełnia kongruencje $a^{m-1} \equiv 1$ $($mod $m)$, dla każdego $m \perp a \in \Z$ (jest to tzn. liczba Carmichaela), wtedy i tylko wtedy gdy spełnia te dwa warunki:
+		\begin{itemize}
+			\item 
+			$m$ jest liczbą bezkwadratową $($czyli $v_p(m) \leq 1$ dla każdego $p \in \p$$)$
+			\item
+			$p|m \Rightarrow p-1|m-1$ 
+		\end{itemize}
+		Łatwo wywnioskować, że liczba Carmichaela ma co najmniej trzy różne dzielniki pierwsze. Także udowodniono, że istnieje nieskończenie wiele liczb Carmichaela.
+	\end{thm}
+	\begin{defi}{Reszty kwadratowe.}
+		\\ Liczba a jest \textbf{resztą kwadratową} modulo p. jeżeli kongruencja $x^2 \equiv a$ $($mod p$)$ ma rozwiązanie w liczbach całkowitych.
+	\end{defi}
+	\begin{defi}{Symbol Legendre'a.}
+		Niech p będzie nieparzystą liczbą pierwszą. Dla $a \in \Z$:
+		$$
+		\legendre{a}{p} =
+		\left\{ \begin{array}{ll}
+		0 & p|a \\
+		+1 & \textrm{jeśli a jest resztą kwadratową modulo p} \\
+		-1 & \textrm{w przeciwnym przypadku}
+		\end{array} \right.	
+		$$
+	\end{defi}
+	\begin{thm}{Kryterium Gaussa}
+		\\
+		Jeżeli $p$ jest nieparzystą liczbą pierwszą, to dla dowolnego $a \in \Z$ zachodzi:
+		$$\legendre{a}{p} \equiv a^{\frac{p-1}{2}}\textrm{ $($mod }p)$$
+	\end{thm}
+	\begin{thm}{Prawo wzajemności reszt kwadratowych}
+		\\
+		Jeżeli $p,q$ są nieparzystymi liczbami pierwszymi, to zachodzi:
+		$$\legendre{p}{q}\legendre{q}{p} = (-1)^{\frac{p-1}{2}\frac{q-1}{2}}$$
+	\end{thm}
+	\begin{thm}{Dwa uzupełnienia praw wzajemności reszt kwadratowych}
+		\\
+		$$
+		\legendre{-1}{p} =
+		\left\{ \begin{array}{ll}
+		+1 & p \equiv 1 \textrm{ }(mod\textrm{ }4) \\
+		-1 & p \equiv 3 \textrm{ }(mod\textrm{ }4)
+		\end{array} \right.	
+		$$
+		
+		$$
+		\legendre{2}{p} =
+		\left\{ \begin{array}{ll}
+		+1 & p \equiv \pm 1 \textrm{ }(mod\textrm{ }8) \\
+		-1 & p \equiv \pm 3 \textrm{ }(mod\textrm{ }8)
+		\end{array} \right.	
+		$$	
+	\end{thm}
+	\section{Wielomiany}
+	\begin{defi}
+		Wielomian stopnia $n$ o współczynnikach $a_0,a_1,\ldots,a_n \in \A$ i $a_n \neq 0$ \\ $(\A$ to dowolny pierścień$)$ nazywamy funkcję $f:\A \rightarrow \A$
+		$$f(x)=a_nx^n+a_{n-1}x^{n-1}+\ldots+a_1x+a_0 = \sum_{k=0}^{n}a_kx^k$$
+		$a_n$ nazywamy \textbf{\textit{współczynnikiem wiodący}} i $a_0$ \textbf{\textit{współczynnik wolny}}.  
+		\\ $\A[x]$ oznaczamy ciałem wielomianów o współczynnikach w $\A$
+		\\
+		\textbf{\textit{Stopień wielomianu}} oznaczamy $deg$ $f$, a \textbf{\textit{pierwiastkiem}} wielomianu nazywamy taką liczbą $\lambda$, że $f(\lambda)=0$.
+	\end{defi}
+	\begin{thm}{Bézout}
+		\\
+		Dany jest wielomian $f(x) \in \A[x]$ stopnia $n$ i $a \in \R$, to istnieje taki wielomian $g(x) \in \A[x]$, że zachodzi równość: 
+		$$f(x)=(x-a)g(x)+f(a)$$
+		Także wiemy, że $deg$ $g(x) = n-1$ i $f(x)$, $g(x)$ mają ten sam współczynnik wiodący. 
+	\end{thm}
+	\begin{cor}{Bézout}
+		\\
+		Kilka prostych wniosków z twierdzenie powyżej:
+		\begin{itemize}
+			\item 
+			Gdy $a$ jest pierwiastkiem wielomiany $f(x)$ to mamy: $f(x)=(x-a)g(x)$
+			\item
+			Gdy $f(x) \in \Z[x]$, to dla różnych $a,b \in \Z$: $a-b|f(a)-f(b)$
+			\item
+			$f(x)=(x-\alpha_1)(x-\alpha_2)\ldots(x-\alpha_s)h(x)$, gdzie $\alpha_k$ dla $k=1,2,\ldots,s$ to pierwiastki wielomianu $f(x)$, $deg$ $h(x)=deg$ $f(x)-s$ i $f(x)$, $h(x)$ mają ten sam współczynnik wiodący. 
+		\end{itemize}
+	\end{cor}
+	\begin{defi}{Wielomiany nierozkładalne}
+		\\
+		Wielomian $f(x) \in \A[x]$ jest \textbf{\textit{nierozkładalny}} nad $\A$, gdy ma stopień co najmniej jeden 
+		\\ i jeżeli $f(x)=a(x)b(x)$, $a(x)$ i $b(x) \in \A[x]$ to $deg$ $a=0$ lub $deg$ $b=0$.
+	\end{defi}
+	\begin{thm}{Kryterium Eisensteina}
+		\\
+		Dany jest wielomian $f(x) \in \Z[x]$, że $f(x)=\sum_{k=0}^n a_kx^k$ i $a_n \neq 0$ i istnieje liczba pierwsza $p$, że: 
+		$$p \nmid a_n ~~~~ p|a_k ~~ \text{dla} ~~ k=0,1,\ldots,n-1 ~~ i ~~ p^2 \nmid a_0$$
+		To wielomian $f(x)$ jest nierozkładalny.
+	\end{thm}
+	\begin{thm}{Zasadnicze twierdzenie algebry}
+		\\
+		Każda niezerowy wielomian $f(x) \in \C[x]$ ma pierwiastek zespolony. Co więcej, wielomian można przedstawić jako: $(deg$ $f(x)=n$, $a_n$ - współczynnik wiodący$)$
+		$$f(x)=a_n(x-x_1)(x-x_2)\ldots(x-x_n)$$
+		gdzie $x_1,x_2,\ldots,x_n$ są to pierwiastki wielomiany $f(x)$. 
+		\\ Można z tego wywnioskować, że każdy wielomian $g(x) \in \A[x]$ stopnia $n$ ma co najwyżej $n$ pierwiastków w $\A$.
+	\end{thm}
+	\begin{thm}
+		Dany jest wielomian $f(x) \in \Z[x]$. Jeśli ma pierwiastek wymierny $\frac{k}{m}$, gdzie $k \perp m$, to $k|a_0$ i $m|a_n$. 
+		\\ Ważny wniosek jest taki, że każdy unormowany wielomian ma pierwiastki całkowite lub niewymierne.
+	\end{thm}
+	\begin{thm}{Wzory Viete'a}
+		\\
+		Jeśli $x_1,x_2,\ldots,x_n$ są pierwiastkami wielomianu $f(x) = \sum_{k=0}^{n}a_kx^k$, to zachodzą wzory:
+		$$
+		\left\{ \begin{array}{ll}
+		x_1+x_2+\ldots+x_n=-{a_{n-1}}/{a_n} \\
+		\sum_{i>j}x_ix_j=a_{n-2}/a_n \\
+		\sum_{i>j>k}x_ix_jx_k=-a_{n-3}/a_n\\
+		\vdots \\
+		x_1x_2\ldots x_n=(-1)^n \cdot a_0/a_n
+		\end{array} \right.	
+		$$
+	\end{thm}
+	
+	\begin{defi}{Wielomian cyklotomiczny}
+		\\
+		Dany jest $n\in\N$ to wielomian cyklomotomiczny definiujemy tak:
+		$$\Phi_n(x)=\prod_{k \perp n}(x-\omega^k)$$
+		Gdzie $\omega=\omega_n$ to jest pierwiastek wielomianu $x^n-1$ i ma postać: 
+		$$\cos{\frac{2\pi}{n}}+i\sin{\frac{2\pi}{n}}$$ $(i$ jednostka urojona ma własność $i^2=-1)$
+	\end{defi}
+	\begin{cor}{Własności wielomianów cyklotomicznych}
+		\begin{itemize}
+			\item $deg$ $\Phi_n=\varphi(n)$, $\Phi_n(x) \in \Z$
+			\item $\Phi_n(x)$ jest nierozkładalny nad ciałem liczb wymiernych.
+			\item $x^n-1=\prod_{d|n} \Phi_d(x)$
+		\end{itemize}
+	\end{cor}
+	\begin{thm}{Lemat Hensela}
+		\\
+		Dany jest wielomian $f(x) \in \Z[x]$ i $p \in \p$. Załóżmy, że istnieje taka liczba całkowita $a$, że $f(a) \equiv 0$ $($mod $p^n$$)$ i $f'(a) \not\equiv 0$ $($mod p$)$. Wówczas istnieje dokładnie jedno takie $b \in \Z$, że: 
+		$$f(b) \equiv 0\textrm{ }(mod\textrm{ }p^{n+1})\textrm{ i } b \equiv a\textrm{ }(mod\textrm{ }p^{n})$$
+	\end{thm}
+	
+	\section{Funkcje arytmetyczne}
+	\begin{defi} Funkcję arytmetyczną nazywamy dowolną funkcję $f:\N \longrightarrow \C$.
+	\end{defi}
+	\begin{defi} Funkcję arytmetyczną nazywamy multiplikatywną, gdy dla wszystkich liczb względnie pierwszych $m,n \in \N$ zachodzi: $f(mn)=f(m)f(n)$.
+	\end{defi}
+	\begin{thm}
+		Suma $k$-tych potęg dzielników oznaczamy:
+		$$\sigma_k(n)=\sum_{d|n}d^k$$
+		W szczególności mamy: $\sigma_0=\tau$ - liczba dzielników, $\sigma_1=\sigma$ - suma dzielników. Ta funkcja jest multiplikatywna
+		\\ Gdy $n=p_1^{\alpha_1}p_2^{\alpha_2}\ldots p_s^{\alpha_s}$, wtedy:
+		$$\tau(n)=(\alpha_1+1)(\alpha_2+1)\cdot \ldots \cdot(\alpha_s+1)\textrm{, } \sigma(n)=\frac{p_1^{\alpha_1+1}-1}{p_1-1}\cdot \frac{p_2^{\alpha_2+1}-1}{p_2-1}\cdot \ldots \cdot \frac{p_s^{\alpha_s+1}-1}{p_s-1}$$
+		Trochę własności:
+		$$\sum_{i=1}^{n} \tau(i)=\sum_{i=0}^{n} \Bigl\lfloor \frac{n}{i} \Bigr\rfloor \textrm{, } 
+		\sum_{i=1}^{n}\sigma(i)=\sum_{i=1}^{n}i\Bigl\lfloor \frac{n}{i} \Bigr\rfloor$$
+		Uogólniając dla $\sigma_k$:
+		$$\sum_{i=1}^{n}\sigma_k(i)=\sum_{i=1}^{n}i^k\Bigl\lfloor \frac{n}{i} \Bigr\rfloor$$
+	\end{thm}
+	
+	\begin{thm} \color{black} Funkcja Eulera $\varphi$ (tocjent):
+		\\ $\varphi(n)$ to ilość liczb naturalnych mniejszych (równych) od $n$ i względnie pierwszych z $n$. Jest to funkcja multiplikatywna. Spełnia:
+		$$\varphi(p^k)=p^k-p^{k-1}=p^k\Bigl(1-\frac{1}{p}\Bigr)$$
+		Więc jasne jest, że działa ten wzór, dla $n=n=p_1^{\alpha_1}p_2^{\alpha_2}\ldots p_s^{\alpha_s}$
+		$$\varphi(n)=n\Bigl(1-\frac{1}{p_1}\Bigr)\Bigl(1-\frac{1}{p_2}\Bigr)\cdot \ldots \cdot \Bigl(1-\frac{1}{p_s}\Bigr)$$
+		Kilka własności:
+		$$n=\sum_{d|n}\varphi(d) \textrm{, } \sum_{i=1}^{n}\varphi(i)\Bigl\lfloor \frac{n}{i} \Bigr\rfloor = \frac{n(n-1)}{2}$$
+	\end{thm}
+	\begin{defi} \color{black} Zdefiniujemy kilka funkcji arytmetycznych, przydatnych później.
+		\begin{itemize}
+			\item $\omega(n)$ jest to liczba dzielników pierwszych $n$.
+			\item Funkcja Möbiusa $\mu$, którą definiujemy tak:
+			$$
+			\mu(n)=
+			\left\{ \begin{array}{ll}
+			(-1)^{\omega(n)}, & \textrm{gdy n jest bezkwadratowe}\\
+			0, & \textrm{w przeciwnym przypadku}
+			\end{array} \right.	
+			$$
+			\item Funkcja jednostkowa $e(n)$:
+			$$
+			e(n)=
+			\left\{ \begin{array}{ll}
+			1, & \textrm{gdy } n=1\\
+			0, & \textrm{gdy } n>1
+			\end{array} \right.	
+			$$
+			\item Identyczność: $id(n)=n$
+			\item Funkcja stale równa $\q:$ $\q (n)=1$
+		\end{itemize}
+		Każda funkcja powyżej jest mutliplikatywna, ostatnie $3$ funkcje są całkowicie multiplikatywna (nie potrzeba warunku $a\perp b$). Poniżej mamy przydatną własność:
+		$$\sum_{d|n} \mu(d)=e(n)$$
+	\end{defi}
+	\begin{defi}{Splot Dirichleta}
+		\\
+		Niech dane są dwie funkcje arytmetyczne $f$ i $g$. Splotem Dirichleta tych funkcji nazywamy $f*g$ i jest równa:
+		$$(f *g)(n)=\sum_{d|n}f(d)g\Bigl(\frac{n}{d}\Bigr)$$
+	\end{defi}
+	\begin{thm}{Klika własności splotu}
+		\begin{itemize}
+			\item Splot jest przemienny i łączny.
+			\item Ma element neutralny $e$.
+			\item Jeśli $f(1) \neq 0$ to $f$ jest odwracalny (splotowo): istnieje g takie, że $f*g=e$
+			\item Splot dwóch funkcji multiplikatywnych jest funkcją multiplikatywną.
+		\end{itemize}
+		Kilka splotów znanych funkcji:
+		\begin{itemize}
+			\item $\mu * \q = e$
+			\item $\q * \q = \tau$
+			\item $\varphi * \q = id$
+			\item $\mu * id = \varphi$
+			\item $id * \q = \sigma$
+		\end{itemize}
+	\end{thm}
+	\begin{thm}{Twierdzenie inwersyjne Möbiusa}
+		\\ 
+		Jeżeli dane są dwie funkcje arytmetyczne $f$ i $g$ oraz:
+		$$g(n)=\sum_{d|n}f(d)$$
+		Wtedy jest to równoważne z:
+		$$f(n)=\sum_{d|n}\mu(d)g\Bigl(\frac{n}{d}\Bigr)$$
+	\end{thm}
+	\section{Ciągi rekurencyjne}
+	\begin{defi}{Wielomian charakterystyczny ciągu}
+		\\ 
+		\color{black}
+		Jeżeli ciąg $a_n$ spełnia rekurencję $a_n=Pa_{n-1}+Qa_{n-2}$ to wielomian charakterystyczny nazywamy $W(x)=x^2-Px-Q$. (Będziemy bardziej rozważać ich pierwiastki, można analogicznie definiować dla większego stopnia rekurencji).
+	\end{defi}
+	\begin{thm}{Metoda Eulera}
+		\\ 
+		Dany jest ciąg $a_n$, jeżeli $\alpha$ i $\beta$ są pierwiastkami wielomianu charakterystycznego tego ciągu, to: 
+		\begin{itemize}
+			\item Jeżeli $\alpha \neq \beta$ to istnieją takie stałe $A$, $B$, że: $$a_n=A\cdot \alpha^n+B\cdot \beta^n$$
+			\item Jeżeli $\alpha=\beta$ to istnieją takie stałe $C$ i $D$, że:
+			$$a_n=C\cdot \alpha^n+D\cdot n\alpha^{n-1}$$ 
+		\end{itemize}
+		Stałe te są jednoznacznie wyznaczone przez pierwsze dwa wyrazy ciągu.
+	\end{thm}
+	\begin{defi}{Funkcja tworząca}
+		\\
+		Funkcją tworzącą ciągu $a_n$ definiujemy tak:
+		$$\sum_{k=0}^{\infty} a_kx^k= a_0+a_1x+a_2x^2+\ldots$$
+	\end{defi}
+	
+	
+	\section{Ciekawe tożsamości algebraiczne}
+	\color{black}
+	Jeżeli $x+y+z=0$, to:
+	\begin{flalign*}~~~ \bullet ~ 2(x^4+y^4+z^4)=(x^2+y^2+z^2)^2 && \end{flalign*}
+	\begin{flalign*}~~~ \bullet ~ \frac{x^5+y^5+z^5}{5} = \frac{x^2+y^2+z^2}{2} \cdot \frac{x^3+y^3+z^3}{3} && \end{flalign*}
+	\begin{flalign*}~~~ \bullet ~ \frac{x^7+y^7+z^7}{7} = \frac{x^2+y^2+z^2}{2} \cdot \frac{x^5+y^5+z^5}{5} && \end{flalign*}
+	\begin{flalign*}\bullet ~ 4x^4+y^4=(2x^2+2xy+y^2)(2x^2-2xy+y^2) ~~~ \textbf{Tożsamość Sophie Germain} && \end{flalign*}
+	\noindent\hrulefill
+	\begin{flalign*}\bullet ~ x^3+y^3+z^3-3xyz=(x+y+z)(x^2+y^2+z^2-xy-yz-zx) && \end{flalign*}
+	\begin{flalign*}\bullet ~ (x+y+z)^3-x^3-y^3-z^3=(x+y)(y+z)(z+x) && \end{flalign*}
+	\begin{flalign*}\bullet ~ x^3+y^3+z^3+(x+y)^3+(y+z)^3+(z+x)^3=(x+y+z)(x^2+y^2+z^2) && \end{flalign*}
+	\noindent\hrulefill
+	\begin{flalign*}\bullet ~ (ab+bc+ca)(a+b+c)=(a+b)(b+c)(c+a)+abc && \end{flalign*}
+	\begin{flalign*}\bullet ~ (a+b+c)(a+b-c)(a-b+c)(-a+b+c)=2(a^2b^2+b^2c^2+c^2a^2)-(a^4+b^4+c^4) && \end{flalign*}
+	\begin{flalign*}\bullet ~ (a+b+c)^3-(a+b-c)^3-(a-b+c)^3-(-a+b+c)^3=24abc && \end{flalign*}
+	\noindent\hrulefill
+	\begin{flalign*}\bullet ~ (x+y)(y+z)(z+x)=x^2(y+z)+y^2(z+x)+z^2(x+y)+2xyz && \end{flalign*}
+	\begin{flalign*}\bullet ~ (x-y)(y-z)(z-x)=-xy(x-y)-yz(y-z)-zx(z-x) && \end{flalign*}
+	\begin{flalign*}\bullet ~ 3(x-y)(y-z)(z-x)=(x-y)^3+(y-z)^3+(z-x)^3 && \end{flalign*}
+	\noindent\hrulefill
+	\begin{flalign*}\bullet ~ \frac{b-c}{(a-b)(a-c)}+\frac{c-a}{(b-c)(b-a)}+\frac{a-b}{(c-a)(c-b)}=\frac{2}{a-b}+\frac{2}{b-c}+\frac{2}{c-a} ~~ a,b,c\textrm{ - różne} && \end{flalign*}
+	\begin{flalign*}\bullet ~ \frac{(b+c)^2}{(a-b)(a-c)}+\frac{(c+a)^2}{(b-c)(b-a)}+\frac{(a+b)^2}{(c-a)(c-b)}=1 ~~ a,b,c\textrm{ - różne} && \end{flalign*}
+	\begin{flalign*}\bullet ~ \frac{bc}{(a-b)(a-c)}+\frac{ca}{(b-c)(b-a)}+\frac{ab}{(c-a)(c-b)}=1 ~~ a,b,c\textrm{ - różne} && \end{flalign*}
+	\begin{flalign*}\bullet ~ \frac{(a+b)(a+c)}{(a-b)(a-c)}+\frac{(b+c)(b+a)}{(b-c)(b-a)}+\frac{(c+a)(c+b)}{(c-a)(c-b)}=1 ~~ a,b,c\textrm{ - różne} && \end{flalign*}
+	\begin{flalign*}\bullet ~ \frac{(1-ab)(1-ac)}{(a-b)(a-c)}+\frac{(1-bc)(1-ba)}{(b-c)(b-a)}+\frac{(1-ca)(1-cb)}{(c-a)(c-b)}=1 ~~ a,b,c\textrm{ - różne} && \end{flalign*}
+	\noindent\hrulefill
+	\begin{flalign*}\bullet ~ \frac{(a+b)}{(a-b)}+\frac{(b+c)}{(b-c)}+\frac{(c+a)}{(c-a)}=\frac{a(b-c)^2+b(c-a)^2+c(a-b)^2}{(a-b)(b-c)(c-a)} ~~ a,b,c\textrm{ - różne} && \end{flalign*}
+	\begin{flalign*}\bullet ~ \frac{(a-b)}{(a+b)}+\frac{(b-c)}{(b+c)}+\frac{(c-a)}{(c+a)}=\frac{(a-b)(b-c)(c-a)}{(a+b)(b+c)(c+a)} && \end{flalign*}
+	\begin{flalign*}\bullet ~ (x^2-yz)(y+z)+(y^2-zx)(z+x)+(x^2-yz)(y+z)=0 && \end{flalign*}
+	\begin{flalign*}\bullet ~ x^2+y^2+z^2+3(xy+yz+zx)=(x+y)(y+z)+(y+z)(z+x)+(z+x)(x+y) && \end{flalign*}
+	
+	\section{Równania diofantyczne}
+	\subsection{Rozkład na czynniki}
+		Korzystając z jednoznaczności rozkładu na czynniki pierwsze w liczbach całkowitych, otrzymując układ równań. Aby zobaczyć metodę w akcji dam przykład:
+	\begin{exmp}
+		Rozwiąż w liczbach całkowitych równianie $2^x+1=y^2$.
+	\end{exmp}
+	\subsection{Nieskończony desant}
+	\subsection{Nierówności}
+	\subsection{Kongruencje}
+	\subsection{Nieskończenie wiele nie znaczy wszystkie}
+	\subsection{Indukcja}
+	\subsection{Inne łatwe triki (Trik,Tw Eulera o 4 liczbach)}
+	\subsection{Równianie Pella}
+	\subsection{Pierścien Gaussa, $\sqrt{D}$}
+	\subsection{Reszty kwadratowe}
+	\section{Nierówności}
+	\begin{thm}[Najważniejsza nierówność na świecie!] $\forall_{x\in \R} ~ x^2\geq 0$ \end{thm}
+	\begin{thm}[Nierówność Bernoulli'ego]
+		Dla $x\geq -1$ oraz jeżeli:
+		\begin{enumerate}
+			\item $\alpha>1$ lub $\alpha<0$ to: $(1+x)^{\alpha}\geq 1+\alpha x$
+			\item $\alpha \in (0,1)$ to: $(1+x)^{\alpha}\leq 1+\alpha x$
+		\end{enumerate}
+		W szczególnośći: $x \geq -1$, $n \in \N:$ $(1+x)^n=1+nx$. 
+		\\ Równość jest wtedy i tylko wtedy jeżeli $\alpha=1$ lub $x=0$
+	\end{thm}
+	\begin{thm}[Nierówności między średnimi] Dla dowolnych $a_1,a_2,\ldots a_n \in \R_{+}$ zachodzą:
+	$$\frac{a_1+a_2+\ldots+a_n}{n}\geq \sqrt[n]{a_1\cdot a_2 \cdot \ldots \cdot a_n}\geq \frac{n}{\frac{1}{a_1}+\frac{1}{a_2}+\ldots+\frac{1}{a_n}}$$
+	\end{thm}
+	\begin{thm}[Nierówność między średnimi potęgowymi] Dla dowolnych $a_1,a_2,\ldots,a_n \in \R_{+}$ i oznaczamy średnią potęgową rzędu $p$ dla tych liczb: $$M_p=\Big(\frac{a_1^p+a_2^p+\ldots+a_n^p}{n}\Big)^{1/p} ~~~ \textrm{dla } p\in \R\setminus \{0\}$$
+	Też definiujemy średnią potęgową dla $0, +\infty,-\infty:$
+	$$M_0=\sqrt[n]{a_1 \cdot a_2 \cdot \ldots \cdot a_n}$$
+	$$M_{+\infty}=\max\{a_1,a_2,\ldots,a_n\}$$
+	$$M_{-\infty}=\min\{a_1,a_2,\ldots,a_n\}$$
+	Wtedy jeżeli $-\infty \leq p<q \leq +\infty$ to $M_p \leq M_q$
+	\end{thm}
+	\begin{thm}[Nierówności Cauchy'ego Schwarza]
+		
+	\end{thm}
 \end{document}
